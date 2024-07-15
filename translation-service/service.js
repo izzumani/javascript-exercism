@@ -52,24 +52,11 @@ export class TranslationService {
    * @returns {Promise<string[]>}
    */
   batch(texts) {
-    const translation =  new Array();
-    return new Promise((resolve,reject)=>{
-      try {
-    texts.forEach((elem)=>{
-          this.free(elem).then((res)=>{
-            console.log(res)
-            translation.push(res)
-            
-            });
-        });
-          resolve(translation);
-      } catch (error) {
-        reject(error)
-      }
-      
+    
+     if(texts.length ==0) return Promise.reject(new BatchIsEmpty());
 
-    })
-     
+     return Promise.all(texts.map((text)=>this.free(text)));
+
     
   }
 
@@ -83,7 +70,13 @@ export class TranslationService {
    * @returns {Promise<void>}
    */
   request(text) {
-    throw new Error('Implement the request function');
+    const promisfy = ()=> new Promise((resolve,reject)=>{
+      this.api.request(text,(req)=>req ? reject(req) : resolve())   
+  });
+
+  return promisfy()
+  .catch(promisfy)
+  .catch(promisfy)
   }
 
   /**
@@ -97,7 +90,16 @@ export class TranslationService {
    * @returns {Promise<string>}
    */
   premium(text, minimumQuality) {
-    throw new Error('Implement the premium function');
+    return this.api.fetch(text)
+    .catch(() => {
+      return this.request(text).then(() => this.api.fetch(text))
+    })
+    .then((result) => {
+      if (result.quality < minimumQuality) {
+        throw new QualityThresholdNotMet()
+      }
+      return result.translation
+    })
   }
 }
 
@@ -133,33 +135,3 @@ Requested a batch translation, but there are no texts in the batch.
     );
   }
 }
-
-import { ExternalApi } from './api';
-// const api = new ExternalApi()
-// .register('jIyaj', 'I understand', 100)
-// .register('jIyajbe’', null)
-// .register('jIyajbe’', "I don't understand", 100);
-
-// let service = new TranslationService(api);
-
-// service.free('jIyajbe’').then((res)=>{
-// console.log(res);
-
-// })
-// .catch((err)=>{
-// console.error(err)
-// });
-
-const api = new ExternalApi({ 'jIyajbe’': [] })
-.register('jIyaj', 'I understand', 100)
-.register('majQa’', 'Well done!', 100);
-
-const service = new TranslationService(api);
-
-service.batch(['jIyaj', 'majQa’']).then((res)=>{
-console.log(res);
-
-})
-.catch((err)=>{
-console.error(err)
-});

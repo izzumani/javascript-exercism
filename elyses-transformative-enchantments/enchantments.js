@@ -103,24 +103,3 @@ export function perfectlyOrdered(deck) {
 export function reorder(deck) {
   return deck.reverse();
 }
-
-// const deck = [1, 2, 3, 4, 10];
-// console.log(seeingDouble(deck));
-
-// const deck = [1, 3, 9, 3, 7];
-// console.log(threeOfEachThree(deck));
-
-// const deck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-// console.log(middleTwo(deck));
-
-// const deck = [1, 2, 3, 5, 6, 10];
-// console.log(sandwichTrick(deck));
-// const deck = [1, 2, 3, 4, 10, 2];
-// console.log(twoIsSpecial(deck));
-
-// const deck = [10, 1, 5, 3, 2, 8, 7];
-// console.log(perfectlyOrdered(deck));
-
-// const deck = [10, 1, 5, 3, 2];
-// console.log(reorder(deck));
-// => [2, 3, 5, 1, 10]

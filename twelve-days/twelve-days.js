@@ -59,7 +59,7 @@ export const recite = (_fromDay=1,_toDay) => {
 
 
   for (const day in reciteDays) {
-    //console.log(day)
+    
     let TheGiftStr = day ==1 ? gifts[day][0] : `${days[day][1]} ${gifts[day][1]}`;
     _recite = song(days[day][0],TheGiftStr)
     

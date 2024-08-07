@@ -17,7 +17,7 @@ const ROMANS = {
 function toRoman(no) {
 	let roman = ''
 	for(const [key, value] of Object.entries(ROMANS)) {
-    console.log(`key: ${key} value: ${value} --> ${key.repeat(no / value)} == key.repeat(${no} / ${value})`);
+    
 		roman += key.repeat(no / value)
 		no %= value
 	}
@@ -27,6 +27,5 @@ function toRoman(no) {
 
 export { toRoman }
 
- console.log(toRoman(49));
 
 //console.log ('1'.repeat(0.5))

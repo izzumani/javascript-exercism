@@ -25,9 +25,10 @@ export function translate(RNA) {
     
     for (const key in codons) {
       if (codons[key].includes(elem))
+      {
         return key;
-      else
-      return false;
+      }
+  
 
     }
     
@@ -35,9 +36,8 @@ export function translate(RNA) {
     
   }).flatMap(elem => elem);
 
-  
-  console.log(names);
-  return false;
+
+
   const stop = names.findIndex(n => n === 'STOP');
   const final = stop === -1 ? names : names.slice(0, stop);
 
@@ -47,6 +47,3 @@ export function translate(RNA) {
 
   return final
 }
-
-const _rna =  "AUGUUUUCUUAAAUGCCC";
-console.log(translate(_rna));
